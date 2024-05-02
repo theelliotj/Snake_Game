@@ -62,10 +62,12 @@ class Snake:
         self.length += 1
         self.x.append(-1)
         self.y.append(-1)
+        
 class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Elliot Snake Game")
+        
         pygame.mixer.init()
         self.play_background_music()
         
@@ -89,7 +91,7 @@ class Game:
         pygame.mixer.Sound.play(sound)
         
     def reset(self):
-        self.snake = Snake(self.surface, 1)
+        self.snake = Snake(self.surface, 4)
         self.apple = Apple(self.surface)
         
     def is_collision(self, x1, y1, x2, y2):
@@ -136,12 +138,12 @@ class Game:
         while running:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                            running = False
                     if event.key == K_RETURN:
                         pygame.mixer.music.unpause()
                         pause = False
                     if not pause:
-                        if event.key == K_ESCAPE:
-                            running = False
                         if event.key == K_UP:
                             self.snake.move_up()
                         if event.key == K_DOWN:
@@ -168,3 +170,4 @@ if __name__ == "__main__":
     game.run() 
             
     
+
